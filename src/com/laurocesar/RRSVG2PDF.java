@@ -25,7 +25,7 @@ import org.apache.fop.svg.PDFTranscoder;
  * @author laurocesar@laurocesar.com
  *
  */
-public class ExtractSVG {
+public class RRSVG2PDF {
 
 	private final static Pattern TITLE_SVG_PATTERN = Pattern.compile(
 			"<xhtml:a name=\"([\\w\\W]*?)\">[\\w\\W]*?:</xhtml:a></xhtml:p>(<svg[\\w\\W]*?</svg>)"
@@ -36,12 +36,17 @@ public class ExtractSVG {
 
 	public static void main(String args[]) throws FileNotFoundException, TranscoderException, IOException{
 		if (args.length!=1){
+			System.out.println("Railroad SVG to PDF");
 			System.out.println("Usage: ExtractSVN filename.xhtml");
 		} else {
 			File f = new File(args[0]);
-
-			ExtractSVG esvg = new ExtractSVG();
-			esvg.extractToCurrentDir(f);
+			
+			if (!f.exists()){
+				System.out.println("File "+f.getAbsolutePath()+" does not exist.");
+			} else {
+				RRSVG2PDF esvg = new RRSVG2PDF();
+				esvg.extractToCurrentDir(f);
+			}
 		}
 		
 	}
