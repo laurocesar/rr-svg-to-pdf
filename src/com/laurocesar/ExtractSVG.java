@@ -57,23 +57,22 @@ public class ExtractSVG {
 
 		String path = xhtmlFile.getParent();
 		
-		System.out.println("Apagando arquivos PDF existentes no diretório");
+		System.out.println("Deleting PDF files in directory");
 		cleanPdfFiles(new File(path));
 		
-		System.out.println("Processando arquivo XHTML em busca de SVG e títulos");
+		System.out.println("Looking for SVG and titles in XHTML file");
 		Map<String, String> mapSVG = extractTitleAndSVG(FileUtils.readFileToString(xhtmlFile));
 		System.out.println("Encontrados: "+mapSVG.size());
 
-		//convertendo para PDF
 		int n = 1;
 		for (String s : mapSVG.keySet()){
-			System.out.println("Processando "+n + " ("+s+")");
+			System.out.println("Processing "+n + " ("+s+")");
 			
 			svgToPDF(IOUtils.toInputStream(mapSVG.get(s)), new FileOutputStream(new File(path+"/"+FILENAME_PREFIX+s+"."+PDF_SUFIX)));
 			n++;
 		}
 		
-		System.out.println("Pronto!");
+		System.out.println("Done!");
 	}
 	
 	/**
