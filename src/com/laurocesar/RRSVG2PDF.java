@@ -37,7 +37,15 @@ public class RRSVG2PDF {
 	public static void main(String args[]) throws FileNotFoundException, TranscoderException, IOException{
 		if (args.length!=1){
 			System.out.println("Railroad SVG to PDF");
-			System.out.println("Usage: ExtractSVN filename.xhtml");
+			System.out.println("-------------------");
+			System.out.println("1) Create an EBNF specification in http://www.bottlecaps.de/rr/ui");
+			System.out.println("2) Save the result as SVG file (.xhtml file)");
+			System.out.println("3) Run: ");
+			System.out.println("   RRSVG2PDF filename.xhtml");
+			System.out.println("4) Done! ");
+			System.out.println("   This will produce as many .PDF files as SVG entries of the .xhtml file");
+			System.out.println("   A .tex file will also be create (to be used in your LaTeX document)");
+			System.out.println("-------------------");
 		} else {
 			File f = new File(args[0]);
 			
@@ -62,20 +70,32 @@ public class RRSVG2PDF {
 
 		String path = xhtmlFile.getParent();
 		
-		System.out.println("Deleting PDF files in directory");
+		System.out.println("Deleting PDF files in the directory");
 		cleanPdfFiles(new File(path));
 		
 		System.out.println("Looking for SVG and titles in XHTML file");
 		Map<String, String> mapSVG = extractTitleAndSVG(FileUtils.readFileToString(xhtmlFile));
-		System.out.println("Encontrados: "+mapSVG.size());
+		System.out.println("Found: "+mapSVG.size());
 
+		StringBuilder sbTeXFile = new StringBuilder();
+		
 		int n = 1;
 		for (String s : mapSVG.keySet()){
 			System.out.println("Processing "+n + " ("+s+")");
 			
+			//SVG to PDF
 			svgToPDF(IOUtils.toInputStream(mapSVG.get(s)), new FileOutputStream(new File(path+"/"+FILENAME_PREFIX+s+"."+PDF_SUFIX)));
+			
+			//put the title in a String that will become a .tex file
+			//this file contains the SVG titles in the same order they appear in the xhtml file
+			sbTeXFile.append("\\includegraphicebnftext{"+s+"} \n");
+			
 			n++;
 		}
+		
+		File texFile = new File(path+"/svg2pdf.tex");
+		System.out.println("Saving TeX file: "+texFile.getAbsolutePath());
+		FileUtils.writeStringToFile(texFile, sbTeXFile.toString());
 		
 		System.out.println("Done!");
 	}
@@ -97,7 +117,7 @@ public class RRSVG2PDF {
 	}
 	
 	/**
-	 * Extract SVG and titles of the imagens 
+	 * Extract SVG and titles of the images 
 	 * @param content
 	 * @return
 	 */
