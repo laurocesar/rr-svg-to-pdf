@@ -5,19 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.fop.svg.PDFTranscoder;
 
 /**
  * Extracts SVG information from Railroad Diagram Generator (http://www.bottlecaps.de/rr/ui) 
@@ -84,7 +79,7 @@ public class RRSVG2PDF {
 			System.out.println("Processing "+n + " ("+s+")");
 			
 			//SVG to PDF
-			svgToPDF(IOUtils.toInputStream(mapSVG.get(s)), new FileOutputStream(new File(path+"/"+FILENAME_PREFIX+s+"."+PDF_SUFIX)));
+			SVGToPDF.svgToPDF(IOUtils.toInputStream(mapSVG.get(s)), new FileOutputStream(new File(path+"/"+FILENAME_PREFIX+s+"."+PDF_SUFIX)));
 			
 			//put the title in a String that will become a .tex file
 			//this file contains the SVG titles in the same order they appear in the xhtml file
@@ -136,16 +131,4 @@ public class RRSVG2PDF {
 		return ret;
 	}
 
-	/**
-	 * Convert an String SVG InputStream to a PDF file
-	 * @param svgFromStream
-	 * @param toPdf
-	 * @throws FileNotFoundException
-	 * @throws TranscoderException
-	 */
-	private void svgToPDF(InputStream svgFromStream, OutputStream toPdf) 
-			throws FileNotFoundException, TranscoderException{
-		 new PDFTranscoder().transcode(new TranscoderInput(svgFromStream), new TranscoderOutput(toPdf));
-	}
-	
 }
