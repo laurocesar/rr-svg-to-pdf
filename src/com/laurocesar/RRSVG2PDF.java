@@ -16,7 +16,7 @@ import org.apache.commons.io.IOUtils;
 
 /**
  * Extracts SVG information from Railroad Diagram Generator (http://www.bottlecaps.de/rr/ui) 
- * and convert them to PDF
+ * and convert them to PDF and produce a .tex file based on those information
  * @author laurocesar@laurocesar.com
  *
  */

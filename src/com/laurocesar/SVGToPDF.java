@@ -12,6 +12,11 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.fop.svg.PDFTranscoder;
 
+/**
+ * Convert a SVG Inputstream/file into a PDF Outputstream/file
+ * @author laurocesar
+ *
+ */
 public abstract class SVGToPDF {
 
 	/**

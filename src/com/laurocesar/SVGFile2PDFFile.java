@@ -6,6 +6,11 @@ import java.io.IOException;
 
 import org.apache.batik.transcoder.TranscoderException;
 
+/**
+ * Command line interface that transforms a SVG file into a PDF one.
+ * @author laurocesar
+ *
+ */
 public class SVGFile2PDFFile {
 
 	public static void main(String args[]) throws FileNotFoundException, TranscoderException, IOException{
