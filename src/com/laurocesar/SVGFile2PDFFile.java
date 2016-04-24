@@ -14,14 +14,14 @@ import org.apache.batik.transcoder.TranscoderException;
 public class SVGFile2PDFFile {
 
 	public static void main(String args[]) throws FileNotFoundException, TranscoderException, IOException{
-		if (args.length!=2){
+		if (args.length!=3){
 			System.out.println("SVG File to PDF File");
 			System.out.println("-------------------");
 			System.out.println("Usage: java com.laurocesar.SVGFile2PDFFile FROM_SVG_FILE TO_PDF_FILE");
 			System.out.println("-------------------");
 		} else {
-			File from = new File(args[0]);
-			File toPdfFile = new File(args[1]);
+			File from = new File(args[1]);
+			File toPdfFile = new File(args[2]);
 			
 			if (!from.exists()){
 				System.out.println("File "+from.getAbsolutePath()+" does not exist.");
