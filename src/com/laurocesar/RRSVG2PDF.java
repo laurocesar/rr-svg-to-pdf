@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 public class RRSVG2PDF {
 
 	private final static Pattern TITLE_SVG_PATTERN = Pattern.compile(
-			"<xhtml:a name=\"([\\w\\W]*?)\">[\\w\\W]*?:</xhtml:a></xhtml:p>[\\s\\n]*(<svg[\\w\\W]*?</svg>)"
+			"<(?:xhtml:)?a name=\"([\\w\\W]*?)\">[\\w\\W]*?:</(?:xhtml:)?a></(?:xhtml:)?p>[\\s\\n]*(<svg[\\w\\W]*?</svg>)"
 			);
 	
 	private static final String FILENAME_PREFIX = "ebnf_";
